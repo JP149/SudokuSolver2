@@ -12,10 +12,15 @@ namespace SudokuSolver2.Console
         static void Main(string[] args)
         {
             System.Console.WriteLine(args[0]);
-            
-            Sudoku sudoku = new Sudoku(args[0]);
 
-            bool solved = Solver.Solve(sudoku);
+            Loader loader = new Loader(args[0]);
+            ushort[] cells = loader.LoadGrid();
+
+            Sudoku sudoku = new Sudoku(cells);
+            
+            Solver solver = new Solver(sudoku);
+
+            bool solved = solver.Solve();
 
             if (solved)
                 System.Console.WriteLine(sudoku);

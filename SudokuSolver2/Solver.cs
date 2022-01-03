@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SudokuSolver2.Validators;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,11 +7,21 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver2
 {
-    public static class Solver
+    public class Solver
     {
-        public static bool Solve(Sudoku sudoku)
+        private Sudoku sudoku;
+        IValidator validator;
+        
+        public Solver(Sudoku sudoku)
         {
-            return BackTrack(sudoku, 0);
+            this.sudoku = sudoku;
+            this.validator = new IndexValidator(sudoku);
+        }
+
+        public bool Solve()
+        {
+            ushort startIndex = 0;
+            return BackTrack(startIndex);
         }
 
         /// <summary>
@@ -21,7 +32,7 @@ namespace SudokuSolver2
         /// Backtrack the next index until solved
         /// If fixed, skip iterating at index move to next index
         /// </summary>
-        public static bool BackTrack(Sudoku sudoku, ushort index)
+        private bool BackTrack(ushort index)
         {
             if (index == 81)
                 return true;
@@ -29,23 +40,22 @@ namespace SudokuSolver2
             if (sudoku.Cells[index] != 0)
             {
                 ushort nextIndex = (ushort)(index + 1);
-                return BackTrack(sudoku, nextIndex);
+                return BackTrack(nextIndex);
             }
 
             for (ushort i = 1; i <= 9; i++)
             {
                 sudoku.Cells[index] = i;
 
-                if (sudoku.IsValid(index))
+                if (validator.IsValid(index))
                 {
                     ushort nextIndex = (ushort)(index+1);
-                    if (!BackTrack(sudoku, nextIndex))
+                    if (!BackTrack(nextIndex))
                         continue;
                     else
                         return true;
                 }
             }
-
             //Value at index causes invalid sudoku puzzle
             //set the cell at index back to unfixed (0)
             sudoku.Cells[index] = 0;

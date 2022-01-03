@@ -6,24 +6,31 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver2
 {
-    static class Loader
+    public class Loader
     {
-        public static ushort[] LoadGrid(string sudoku)
-        {
-            var cells = new ushort[81];
+        string sudokuString;
 
-            if (string.IsNullOrEmpty(sudoku))
+        ushort[] cells = new ushort[81];
+
+        public Loader(string sudoku)
+        {
+            this.sudokuString = sudoku;
+        }
+
+        public ushort[] LoadGrid()
+        {
+            if (string.IsNullOrEmpty(sudokuString))
                 return cells;
 
-            ParseSudokuString(sudoku, cells);
+            ParseSudokuString();
 
             return cells;
         }
 
-        private static void ParseSudokuString(string sudoku, ushort[] cells)
+        private void ParseSudokuString()
         {
             int cell = 0;
-            foreach (char charNumber in sudoku)
+            foreach (char charNumber in sudokuString)
             {
                 if (charNumber == '-')
                     cells[cell] = 0;

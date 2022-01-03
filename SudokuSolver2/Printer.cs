@@ -6,9 +6,16 @@ using System.Threading.Tasks;
 
 namespace SudokuSolver2
 {
-    public static class Printer
+    public class Printer
     {
-        static public string Print(Sudoku sudoku, bool pretty = false)
+        private Sudoku sudoku;
+
+        public Printer(Sudoku sudoku)
+        {
+            this.sudoku = sudoku;
+        }
+
+        public string Print(bool pretty = false)
         {
             StringBuilder sb = new StringBuilder();
             int count = 0;

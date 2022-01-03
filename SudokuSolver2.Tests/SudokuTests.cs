@@ -20,10 +20,14 @@ namespace SudokuSolver2.Tests
                 "-----24-5" +
                 "--9-8----" +
                 "56-------";
+            Loader loader = new Loader(sudokuString);
+            ushort[] cells = loader.LoadGrid();
 
-            Sudoku sudoku = new Sudoku(sudokuString);
+            Sudoku sudoku = new Sudoku(cells);
+            
+            Solver solver = new Solver(sudoku);
 
-            bool solved = Solver.Solve(sudoku);
+            bool solved = solver.Solve();
             
             Assert.IsTrue(solved);
 

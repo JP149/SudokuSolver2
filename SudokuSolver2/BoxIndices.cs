@@ -23,24 +23,28 @@ namespace SudokuSolver2
     ///    63 64 65 | 66 67 68 | 69 70 71 
     ///    72 73 74 | 75 76 77 | 78 79 80 
     /// </summary>
+    /// 
+
+    public class Box : List<int> { }
+
     public static class BoxIndices
     {
-        public static readonly int[] Box1 = { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
-        public static readonly int[] Box2 = { 3, 4, 5, 12, 13, 14, 21, 22, 23 };
-        public static readonly int[] Box3 = { 6, 7, 8, 15, 16, 17, 24, 25, 26 };
-        public static readonly int[] Box4 = { 27, 28, 29, 36, 37, 38, 45, 46, 47 };
-        public static readonly int[] Box5 = { 30, 31, 32, 39, 40, 41, 48, 49, 50 };
-        public static readonly int[] Box6 = { 33, 34, 35, 42, 43, 44, 51, 52, 53 };
-        public static readonly int[] Box7 = { 54, 55, 56, 63, 64, 65, 72, 73, 74 };
-        public static readonly int[] Box8 = { 57, 58, 59, 66, 67, 68, 75, 76, 77 };
-        public static readonly int[] Box9 = { 60, 61, 62, 69, 70, 71, 78, 79, 80 };
+        public static readonly Box Box1 = new Box { 0, 1, 2, 9, 10, 11, 18, 19, 20 };
+        public static readonly Box Box2 = new Box { 3, 4, 5, 12, 13, 14, 21, 22, 23 };
+        public static readonly Box Box3 = new Box { 6, 7, 8, 15, 16, 17, 24, 25, 26 };
+        public static readonly Box Box4 = new Box { 27, 28, 29, 36, 37, 38, 45, 46, 47 };
+        public static readonly Box Box5 = new Box { 30, 31, 32, 39, 40, 41, 48, 49, 50 };
+        public static readonly Box Box6 = new Box { 33, 34, 35, 42, 43, 44, 51, 52, 53 };
+        public static readonly Box Box7 = new Box { 54, 55, 56, 63, 64, 65, 72, 73, 74 };
+        public static readonly Box Box8 = new Box { 57, 58, 59, 66, 67, 68, 75, 76, 77 };
+        public static readonly Box Box9 = new Box { 60, 61, 62, 69, 70, 71, 78, 79, 80 };
 
-        public static int[] GetBox(int indexToFind)
+        public static Box GetBox(int indexToFind)
         {
             if (indexToFind > 80 || indexToFind < 0)
                 throw new Exception("Invalid Index, Out of Range");
 
-            int[] containedBox = null;
+            Box containedBox = null;
 
             if (Box1.Contains(indexToFind))
                 containedBox = Box1;
